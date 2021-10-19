@@ -13,6 +13,7 @@ Description
 ---------------
 This plugin adds new widgets to the Elementor page builder.
 * Step Box
+* Custom Tabs
 
 Installation
 ---------------
