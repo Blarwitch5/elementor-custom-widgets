@@ -107,6 +107,14 @@ class RB_Custom_tabs extends Widget_Base {
 				'label_block' => true,
 			]
 		);
+        $repeater->add_control(
+			'tab_id', [
+				'label' => __( 'Tab ID (mandatory - no accents)', 'plugin-domain' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => __( 'id' , 'plugin-domain' ),
+				'label_block' => true,
+			]
+		);
 
 		$repeater->add_control(
 			'tab_content', [
@@ -125,15 +133,17 @@ class RB_Custom_tabs extends Widget_Base {
 				'fields' => $repeater->get_controls(),
 				'default' => [
 					[
-						'tab_title' => __( 'Tab 1', 'plugin-domain' ),
+						'tab_name' => __( 'Tab 1', 'plugin-domain' ),
+                        'tab_id' => __( 'tab 1 id', 'plugin-domain' ),
 						'tab_content' => __( 'Content', 'plugin-domain' ),
 					],
 					[
-						'tab_title' => __( 'Tab #2', 'plugin-domain' ),
+						'tab_name' => __( 'Tab #2', 'plugin-domain' ),
+                        'tab_id' => __( 'tab 2 id', 'plugin-domain' ),
 						'tab_content' => __( 'Content', 'plugin-domain' ),
 					],
 				],
-				'title_field' => '{{{ tab_title }}}',
+				'title_field' => '{{{ tab_name }}}',
 			]
 		);
 
@@ -147,36 +157,34 @@ class RB_Custom_tabs extends Widget_Base {
 		if ( $settings['tab'] ) {
 			echo '<div class="tab">';
 			foreach (  $settings['tab'] as $item ) {
-				echo '<button class="elementor-repeater-item-' . $item['_id'] . ' tablinks">
-                        '. $item['tab_title'] .'
+				echo '<button class="elementor-repeater-item-' . $item['_id'] . ' tab__link" onclick="openTab(event, \''. strtolower(str_replace(' ', '-', $item['tab_id'])) .'\')">
+                        '. $item['tab_name'] .'
                       </button>';
 			}
 			echo '  
-                </div>';
-		}
-        if ( $settings['tab'] ) {
-			foreach (  $settings['tab'] as $item ) {
-				echo '<div id="' . strtolower($item['tab_title']) . '" class="elementor-repeater-item-' . $item['_id'] . ' tabcontent">
+                    </div>
+                    <div class="tab__content-wrapper">';
+            foreach (  $settings['tab'] as $item ) {
+                echo '<div id="'. strtolower(str_replace(' ', '-', $item['tab_id'])) .'" class="elementor-repeater-item-' . $item['_id'] . ' tab__content">
                         '. $item['tab_content'] .'
-                      </div>';
-			}
+                        </div>';
+            }
+            echo '</div>';
 		}
 	}
 
 	protected function _content_template() {
 		?>
-		<# if ( settings.step.length ) { #>
+		<# if ( settings.tab.length ) { #>
         <div class="tab">
 			<# _.each( settings.tab, function( item ) { #>
-                <button class="elementor-repeater-item-{{ item._id }} tablinks">
-                    {{{ item.tab_title }}}
+                <button class="elementor-repeater-item-{{ item._id }} tablinks" onclick="openTab(event, '{{{ item.tab_id }}}')">
+                    {{{ item.tab_name }}}
                 </button>
 			<# }); #>
         </div>
-		<# } #>
-        <# if ( settings.step.length ) { #>
-			<# _.each( settings.tab, function( item ) { #>
-                <div id="{{{ item.tab_title }}}" class="elementor-repeater-item-{{ item._id }} tabcontent">
+        <# _.each( settings.tab, function( item ) { #>
+                <div id="{{{ item.tab_id }}}" class="elementor-repeater-item-{{ item._id }} tabcontent">
                 {{{ item.tab_content }}}
                       </div>
 			<# }); #>

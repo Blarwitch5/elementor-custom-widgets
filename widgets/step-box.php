@@ -51,7 +51,7 @@ class RB_Step_Box extends Widget_Base {
      * @return string Widget icon.
      */
     public function get_icon() {
-        return 'eicon-box';
+        return 'eicon-info-box';
     }
 
     /**

@@ -3,13 +3,13 @@ function openTab(event, tabTitle) {
   var i, tabcontent, tablinks;
 
   // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent = document.getElementsByClassName("tab__content");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
 
   // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
+  tablinks = document.getElementsByClassName("tab__link");
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
@@ -18,3 +18,7 @@ function openTab(event, tabTitle) {
   document.getElementById(tabTitle).style.display = "block";
   event.currentTarget.className += " active";
 }
+//add id="defaultOpen" to first tab
+document.querySelector('.tab').firstChild.setAttribute('id', 'defaultOpen');
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
