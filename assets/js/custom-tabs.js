@@ -15,10 +15,11 @@ function openTab(event, tabTitle) {
   }
 
   // Show the current tab, and add an "active" class to the button that opened the tab
-  document.getElementById(tabTitle).style.display = "block";
+  document.getElementById(tabTitle).style.display = "flex";
   event.currentTarget.className += " active";
 }
 //add id="defaultOpen" to first tab
-document.querySelector('.tab').firstChild.setAttribute('id', 'defaultOpen');
+const tabLinksList = document.querySelector('.tab__links-wrapper');
+tabLinksList.children[0].setAttribute('id', 'defaultOpen');
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();

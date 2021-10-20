@@ -155,21 +155,20 @@ class RB_Custom_tabs extends Widget_Base {
 		$settings = $this->get_settings_for_display();
 
 		if ( $settings['tab'] ) {
-			echo '<div class="tab">';
+			echo '  <div class="tab__links-wrapper">';
 			foreach (  $settings['tab'] as $item ) {
-				echo '<button class="elementor-repeater-item-' . $item['_id'] . ' tab__link" onclick="openTab(event, \''. strtolower(str_replace(' ', '-', $item['tab_id'])) .'\')">
+				echo '  <button class="elementor-repeater-item-' . $item['_id'] . ' tab__link" onclick="openTab(event, \''. strtolower(str_replace(' ', '-', $item['tab_id'])) .'\')">
                         '. $item['tab_name'] .'
-                      </button>';
+                        </button>';
 			}
-			echo '  
-                    </div>
+			echo '  </div>
                     <div class="tab__content-wrapper">';
             foreach (  $settings['tab'] as $item ) {
-                echo '<div id="'. strtolower(str_replace(' ', '-', $item['tab_id'])) .'" class="elementor-repeater-item-' . $item['_id'] . ' tab__content">
+                echo '  <div id="'. strtolower(str_replace(' ', '-', $item['tab_id'])) .'" class="elementor-repeater-item-' . $item['_id'] . ' tab__content">
                         '. $item['tab_content'] .'
                         </div>';
             }
-            echo '</div>';
+            echo '  </div>';
 		}
 	}
 
